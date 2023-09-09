@@ -26,13 +26,16 @@ def get_topic_id(msg:Message):
 async def init_tunnel(msg: Message):
     topic_id=get_topic_id(msg)
     chat_id=msg.chat.id
-    tunnel_id=tunnels.get_tunnel_id(chat_id,topic_id)
-    if tunnel_id==None:
-        tunnel_id=tunnels.init_tunnel(chat_id,topic_id)
-        text=MESSAGES['init_tunnel'].format(tunnel_id)
+    if topic_id!=None:
+        tunnel_id=tunnels.get_tunnel_id(chat_id,topic_id)
+        if tunnel_id==None:
+            tunnel_id=tunnels.init_tunnel(chat_id,topic_id)
+            text=MESSAGES['init_tunnel'].format(tunnel_id)
+        else:
+            text=f"Тунель уже существует\nId: <code>{tunnel_id}</code>"
+        await send_to_topic(text,chat_id,topic_id)
     else:
-        text=f"Тунель уже существует\nId: <code>{tunnel_id}</code>"
-    await send_to_topic(text,chat_id,topic_id)
+        await send_msg(chat_id,"Тунель может быть инициализирован только в треде (топике) и только членом СДР!")
 
 
 def get_tunnel_id(args:str):
