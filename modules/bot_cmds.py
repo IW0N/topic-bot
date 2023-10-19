@@ -2,6 +2,7 @@
 
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
+from aiogram.types import InlineKeyboardMarkup
 
 from typing import Callable
 
@@ -24,8 +25,8 @@ async def send_msg(user_id: int, text: str, dp: Dispatcher | None=None, **kwargs
     '''Отправка сообщения'''
     await dp.bot.send_message(user_id, text, parse_mode='html', **kwargs)
 @bot_setup
-async def send_to_topic(text:str,topic_chat_id:int,topic_id:int, dp: Dispatcher | None=None, **kwargs):
-    await dp.bot.send_message(topic_chat_id,text,parse_mode="html",reply_to_message_id=topic_id,**kwargs)
+async def send_to_topic(text:str,topic_chat_id:int,topic_id:int, dp: Dispatcher | None=None, reply_markup:InlineKeyboardMarkup|None=None, **kwargs):
+    await dp.bot.send_message(topic_chat_id,text,parse_mode="html",reply_to_message_id=topic_id,reply_markup=reply_markup,  **kwargs)
 @bot_setup
 async def forward_msg(chat_id_to: int, chat_id_from: int, msg_id: int, dp: Dispatcher | None=None, **kwargs):
     '''Пересылка сообщения'''
