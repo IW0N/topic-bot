@@ -28,7 +28,7 @@ class topic_signalbot:
                 text=f"Тунель уже существует\nId: <code>{tunnel_id}</code>"
             await send_to_topic(text,chat_id,topic_id)
         else:
-            await send_msg(chat_id,"Тунель может быть инициализирован только в треде (топике) и только членом СДР!")
+            await send_msg(chat_id,"Тунель может быть инициализирован только в треде темы!")
     def __get_tunnel_id(self,args:str):
     
         try:
